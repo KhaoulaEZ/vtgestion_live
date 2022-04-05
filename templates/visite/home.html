@@ -1,0 +1,179 @@
+{% extends 'index.html' %}
+{%load static%}
+{% block content %}
+<div class="container-fluid px-4">
+    <!-- <h1 class="mt-4">Dashboard</h1> -->
+    {% include 'partials/_messages.html'%}
+
+    <div class="card mb-4" style="height: 140px;">
+        <div class="card-header"><i class="fas fa-filter"></i>
+            Filter
+        </div>
+        <div class="card-body">
+            <form action="{% url 'search' %}" method="POST" autocomplete="off">
+                <div class="row">
+                    <div class="col-xl-2 ">
+                        <div class="form-floating mb-3">
+                            <textarea name="search_Client" class="form-control" id="searchField"
+                                placeholder="Search">{{search_Client}}</textarea>
+                            <label for="searchField">Client</label>
+                        </div>
+                    </div>
+                    <div class="col-xl-2 ">
+                        <div class="form-floating mb-3">
+                            <input type="text" name="search_Cin" class="form-control" id="searchField"
+                                placeholder="Search" value={{search_Cin}}>
+                            <label for="searchField">CIN</label>
+                        </div>
+                    </div>
+                    <div class="col-xl-2 ">
+                        <div class="form-floating mb-3">
+                            <input type="text" name="search_Matricule" class="form-control" id="searchField"
+                                placeholder="Search" value={{search_Matricule}}>
+                            <label for="searchField">Matricule</label>
+                        </div>
+                    </div>
+                    <div class="col-xl-2 ">
+                        <div class="form-floating mb-3">
+                            <input type="date" name="search_DateV" class="form-control" id="searchField"
+                                placeholder="Search" value={{search_DateV}}>
+                            <label for="search_DateV">Date de visite</label>
+                        </div>
+                    </div>
+                    <div class="col-xl-2 ">
+                        <div class="form-floating mb-3">
+                            <input type="date" name="search_DateE" class="form-control" id="searchField"
+                                placeholder="Search" value={{search_DateE}}>
+                            <label for="searchField">Date d'expiration</label>
+                        </div>
+                    </div>
+                    <div class="col-xl-2 " style="margin-top: 0.3%;">
+                        <button type="submit" class="btn  btn-lg"
+                            style="background-color: rgb(152, 169, 175);">Recherche
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-2 ">
+            <div class="card bg-primary text-white mb-4">
+                <a href="{% url 'add' %}" class="btn btn-primary">Ajouter <svg xmlns="http://www.w3.org/2000/svg"
+                        width="17" height="17" fill="currentColor" class="bi bi-file-plus" viewBox="0 0 16 16">
+                        <path
+                            d="M8.5 6a.5.5 0 0 0-1 0v1.5H6a.5.5 0 0 0 0 1h1.5V10a.5.5 0 0 0 1 0V8.5H10a.5.5 0 0 0 0-1H8.5V6z">
+                        </path>
+                        <path
+                            d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2zm10-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1z">
+                        </path>
+                    </svg>
+                </a>
+            </div>
+        </div>
+        <div class="col-xl-2 ">
+            <div class="card bg-success text-white mb-4">
+                <a href="{% url 'export_xls' %}" class="btn btn-success">Exporter <svg
+                        xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-file-spreadsheet-fill" viewBox="0 0 16 16">
+                        <path
+                            d="M12 0H4a2 2 0 0 0-2 2v4h12V2a2 2 0 0 0-2-2zm2 7h-4v2h4V7zm0 3h-4v2h4v-2zm0 3h-4v3h2a2 2 0 0 0 2-2v-1zm-5 3v-3H6v3h3zm-4 0v-3H2v1a2 2 0 0 0 2 2h1zm-3-4h3v-2H2v2zm0-3h3V7H2v2zm4 0V7h3v2H6zm0 1h3v2H6v-2z">
+                        </path>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="fas fa-table me-1"></i>
+            Résultat
+        </div>
+        <div class="card-body">
+            <table id="datatablesSimple">
+                <thead>
+                    <tr>
+                        <!-- <th>Id</th> -->
+                        <th>Date visite </th><!-- Visite -->
+                        <th>Date d'exp</th><!-- Visite -->
+                        <th>Matricule</th><!-- Vehicule -->
+                        <th>Type VH</th><!-- Vehicule -->
+                        <th>Type VT</th><!-- Visite -->
+                        <th>Client</th><!-- Proprietaire -->
+                        <th>CIN</th><!-- Proprietaire -->
+                        <th>Ville</th><!-- Proprietaire -->
+                        <th>N° tél</th><!-- Proprietaire -->
+                        <th>Prix</th><!-- Visite -->
+                        <th>Règlement</th><!-- Visite -->
+                        <th></th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for obj in page_obj %}
+                    <tr>
+                        <!-- <td>{{obj.pk}}</td> -->
+                        <td>{{obj.date_visite}}</td>
+                        <td>{{obj.date_expiration}}</td>
+                        <td>{{obj.vehicule.matricule}}</td>
+                        <td>{{obj.vehicule.type}}</td>
+                        <td>{{obj.type}}</td>
+                        <td>{{obj.vehicule.proprietaire}}</td>
+                        <td>{{obj.vehicule.proprietaire.Cin}}</td>
+                        <td>{{obj.vehicule.proprietaire.ville}}</td>
+                        <td>{{obj.vehicule.proprietaire.Tele}}</td>
+                        <td>{{obj.prix}}</td>
+                        <td>{{obj.paiment}}</td>
+
+
+                        <td width="120px">
+                            <div class="row">
+                                <div class="col-xl-4">
+                                    <a href="{% url 'modifier' obj.pk %}" style="color: #FFC107;"><i
+                                            class="fas fa-edit fa-lg"></i>
+                                    </a>
+                                </div>
+                                <div class="col-xl-4">
+                                    <!-- <a href="{% url 'supprimer' obj.pk %}" style="color: red;"> -->
+                                    <a style="color: red;" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                        <i class="fas fa-trash-alt fa-lg"></i>
+                                    </a>
+                                </div>
+                                <div class="col-xl-4">
+                                    <a href="{% url 'facture' obj.pk %}" style="color: black;">
+                                        <i class="fas fa-file-download fa-lg"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Supprimer la visite </h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    Êtes-vous sûr de vouloir supprimer cette visite ?
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Fermer</button>
+                                    <a href="{% url 'supprimer' obj.pk %}" type="button"
+                                        class="btn btn-primary">Supprimer</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

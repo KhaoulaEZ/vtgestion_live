@@ -1,0 +1,257 @@
+{% extends 'index.html' %}
+{%load static%}
+{% block content %}
+
+<div class="container-fluid px-4">
+    <!-- <u>
+        <h1 style="text-align:center;">Modifer une Visite</h1>
+    </u> -->
+    <div style="text-align:left;">
+        <form action="{% url 'modifier' values.id %}" method="POST" autocomplete="off">
+            {% include 'partials/_messages.html'%}
+            {% csrf_token%}
+            <br>
+            <div class="row">
+                <div class="col-xl-6">
+                    <div class="card mb-4">
+                        <div class="card-header">Propriétaire</div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-xl-4 col-md-6">
+                                    <div class="form-floating mb-3">
+                                        <textarea name="nom" class="form-control"
+                                            required>{{values.vehicule.proprietaire.nom}}</textarea>
+                                        <label for="searchField">Nom</label>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-md-6">
+                                    <div class="form-floating mb-3">
+                                        <textarea name="prenom" class="form-control"
+                                            required>{{values.vehicule.proprietaire.prenom}}</textarea>
+                                        <label for="searchField">Prénom</label>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-md-6">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" name="CIN" class="form-control" required
+                                            value={{values.vehicule.proprietaire.Cin}}>
+                                        <label for="searchField">CIN</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xl-4 col-md-6">
+                                    <div class="form-floating mb-3">
+                                        <textarea name="Tele"
+                                            class="form-control">{{values.vehicule.proprietaire.Tele}}</textarea>
+                                        <label for="search_DateV">N°tél </label>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-md-6">
+                                    <div class="form-floating mb-3">
+                                        <textarea name="VILLE"
+                                            class="form-control">{{values.vehicule.proprietaire.ville}}</textarea>
+                                        <label for="searchField">Ville</label>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-md-6">
+                                    <div class="form-floating mb-3">
+                                        <textarea name="QUARTIER"
+                                            class="form-control">{{values.vehicule.proprietaire.quartier}}</textarea>
+                                        <label for="searchField">Quartier</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-6">
+                    <div class="card mb-4">
+                        <div class="card-header">Visite</div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-xl-4">
+                                    <div class="form-floating mb-3">
+                                        <input type="date" name="date_visite" class="form-control" required
+                                            value={{values.date_visite}}>
+                                        <label for="searchField">Date visite</label>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4">
+                                    <div class="form-floating mb-3">
+                                        <input type="date" name="date_expiration" class="form-control" required
+                                            value="{{values.date_expiration}}">
+                                        <label for="searchField">Date expiration</label>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4">
+                                    <div class="form-floating mb-3">
+                                        <select type="text" name="type_visite" class="form-control" id="type_visite"
+                                            required value="{{values.type}}">
+                                            {% if values.type %}
+                                            <option name="type_visite" selected value="{{values.type}}">{{values.type}}
+                                            </option>
+                                            {% endif %}
+                                            <option name="type_visite" value="VTP">VTP</option>
+                                            <option name="type_visite" value="MUT">MUT</option>
+                                            <option name="type_visite" value="VOL">VOL</option>
+                                            <option name="type_visite" value="VC">VC</option>
+                                        </select>
+                                        <label for="searchField">Type visite</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xl-4">
+                                    <div class="form-floating mb-3">
+                                        <select name="resultat" class="form-control" id="amount" required
+                                            value={{values.resultat}}>
+                                            {% if values.resultat %}
+                                            <option name="resultat" selected value="{{values.resultat}}">
+                                                {{values.resultat}}
+                                            </option>
+                                            {% endif %}
+                                            <option name="resultat" value="favorable">favorable</option>
+                                            <option name="resultat" value="défavorable">défavorable</option>
+                                        </select>
+                                        <label for="searchField">Résultat</label>
+                                    </div>
+                                </div>
+                                <div class="col-xl-8">
+                                    <div class="form-floating mb-3">
+                                        <textarea name="observation"
+                                            class="form-control">{{values.observation}}</textarea>
+                                        <label for="searchField">Observation</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xl-6">
+                    <div class="card mb-4">
+                        <div class="card-header">Facture</div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-xl-4">
+                                    <div class="form-floating mb-3">
+                                        <input type="number" name="Narsa" class="form-control" required id="amount"
+                                            required value={{values.facture.Narsa}}>
+                                        <label for="searchField">Narsa</label>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4">
+                                    <div class="form-floating mb-3">
+                                        <input type="number" name="taxe_communale" class="form-control" required
+                                            id="amount" required value={{values.facture.taxe_communale}}>
+                                        <label for="searchField">Quittance</label>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4">
+                                    <div class="form-floating mb-3">
+                                        <input type="number" name="taxe_fiscale" class="form-control" required
+                                            value={{values.facture.taxe_fiscale}}>
+                                        <label for="searchField">Taxe fiscale</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xl-4">
+                                    <div class="form-floating mb-3">
+                                        <select name="paiment" class="form-control" id="paiment" required
+                                            value="{{values.facture.paiment}}">
+                                            {% if values.facture.paiment %}
+                                            <option name="type_visite" selected value="{{values.facture.paiment}}">
+                                                {{values.facture.paiment}}</option>
+                                            {% endif %}
+                                            <option name="paiment" value="Espèce">Espèce</option>
+                                            <option name="paiment" value="Chéque">Chéque</option>
+                                            <option name="paiment" value="Carte bancaire">Carte bancaire</option>
+                                        </select>
+                                        <label for="searchField">Mode de réglement</label>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4">
+                                    <div class="form-floating mb-3">
+                                        <input type="number" name="montant_net" class="form-control" required
+                                            value={{values.facture.montant_net}}>
+                                        <label for="searchField">Montant HT</label>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4">
+                                    <div class="form-floating mb-3">
+                                        <textarea name="numero" class="form-control"
+                                            required>{{values.facture.numero}}</textarea>
+                                        <label for="searchField">N° Facture</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-6">
+                    <div class="card mb-4">
+                        <div class="card-header">Véhicule</div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-xl-3">
+                                    <div class="form-floating mb-3">
+                                        <textarea name="Matricule" class="form-control"
+                                            required>{{values.vehicule.matricule}}</textarea>
+                                        <label for="searchField">Matricule</label>
+                                    </div>
+                                </div>
+                                <div class="col-xl-3">
+                                    <div class="form-floating mb-3">
+                                        <textarea name="Marque"
+                                            class="form-control">{{values.vehicule.marque}}</textarea>
+                                        <label for="searchField">Marque</label>
+                                    </div>
+                                </div>
+                                <div class="col-xl-3">
+                                    <div class="form-floating mb-3">
+                                        <select name="type_vh" class="form-control" id="type_vh"
+                                            value="{{values.vehicule.type}}">
+                                            {% if values.vehicule.type %}
+                                            <option name="type_vh" selected value="{{values.vehicule.type}}">
+                                                {{values.vehicule.type}}
+                                            </option>
+                                            {% endif %}
+                                            <option name="type_vh" value="VL">VL</option>
+                                            <option name="type_vh" value="PL-15T">PL-15T</option>
+                                            <option name="type_vh" value="PL+15T">PL+15T</option>
+                                        </select>
+                                        <label for="searchField">Type véhicule</label>
+                                    </div>
+                                </div>
+                                <div class="col-xl-3 col-md-6">
+                                    <div class="form-floating mb-3">
+                                        <input type="number" name="puissance" class="form-control"
+                                            value={{values.vehicule.puissance_fiscale}}>
+                                        <label for="searchField">Puissance fisc</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xl-4 col-md-6">
+                            <div class="card bg-primary text-white mb-4">
+                                <input type="submit" class="btn btn-primary" value="Modifier">
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-md-6">
+                            <div class="card bg-primary text-white mb-4">
+                                <a href="{% url 'visite'%}" class="btn btn-primary">Annuler</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

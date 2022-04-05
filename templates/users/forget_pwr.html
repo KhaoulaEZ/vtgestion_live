@@ -1,0 +1,118 @@
+
+{% load static %}
+
+<!DOCTYPE html>
+<html class="loading semi-dark-layout" lang="en" data-layout="semi-dark-layout" data-textdirection="ltr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ABXR - Forgot password</title>
+    <link rel="stylesheet" href="{% static 'css/validate.css' %}">
+    <link rel="stylesheet" href="{% static 'css/auth.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+</head>
+
+<body class="vertical-layout vertical-menu-modern blank-page navbar-floating footer-static  " data-open="click"
+    data-menu="vertical-menu-modern" data-col="blank-page">
+    <div class="app-content content ">
+        <div class="content-overlay"></div>
+        <div class="header-navbar-shadow"></div>
+        <div class="content-wrapper">
+            <div class="content-header row">
+            </div>
+            <div class="content-body">
+                <div class="auth-wrapper auth-basic px-2">
+                    <div class="auth-inner my-2">
+                        <div class="card mb-0">
+                            <div class="card-body">
+                                <div class="alert alert-danger d-none" role="alert">
+                                    <div class="alert-body">
+                                    </div>
+                                </div>
+                                <div class="alert alert-success d-none" role="alert">
+                                    <div class="alert-body">
+                                    </div>
+                                </div>
+                                <h4 class="card-title mb-1">Forgot Password? 🔒</h4>
+                                <p class="card-text mb-2">Enter your email and we'll send you instructions to reset your
+                                    password</p>
+                                <form class="auth-forgot-password-form mt-2">
+                                    <div class="mb-1">
+                                        <label for="forgot-password-email" class="form-label">Email</label>
+                                        <input type="text" class="form-control" id="forgot-password-email"
+                                            name="forgot-password-email" placeholder="john@example.com"
+                                            aria-describedby="forgot-password-email" tabindex="1" autofocus />
+                                    </div>
+                                    <button type="submit" class="btn btn-primary w-100" tabindex="2">Send reset
+                                        link</button>
+                                </form>
+
+                                <p class="text-center mt-2">
+                                    <a href="/login"> <i data-feather="chevron-left"></i> Back to login
+                                    </a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+    <script src="{% static 'js/validate.min.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        $.validator.addMethod("regex", function (value, element, regexp) {
+            return this.optional(element) || regexp.test(value);
+        });
+        $(".auth-forgot-password-form").submit(function (e) {
+            $(".alert-danger").addClass("d-none");
+            $(".alert-danger").last().html();
+            e.preventDefault();
+            $(this).validate({
+                rules: {
+                    'forgot-password-email': {
+                        required: true,
+                        regex: /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/
+                    }
+                },
+                messages: {
+                    'forgot-password-email': {
+                        required: 'Please enter your email',
+                        regex: "Please enter a valid email address"
+                    }
+
+                }
+            });
+            var isValid = $(this).valid();
+            if (isValid) {
+                var data = JSON.stringify({
+                    "email": $("#forgot-password-email").val(),
+                });
+                var config = {
+                    method: 'post',
+                    url: '/auth/users/reset_password/',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    data: data
+                };
+                axios(config)
+                    .then(function (response) {
+                        $(".alert-success > .alert-body").html('A password reset link was sent! ✅');
+                        $(".alert-success").removeClass("d-none");
+                    })
+                    .catch(function (error) {
+                        $(".alert-danger > .alert-body").html(error.response.data[0]);
+                        $(".alert-danger").removeClass("d-none");
+                    });
+            }
+        })
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,128 @@
+{% extends 'index.html' %}
+{%load static%}
+{% block content %}
+
+<div class="container-fluid px-4">
+    <h1 style="text-align:center;">Chiffre d'affaire</h1>
+    <br>
+    <form action="{% url 'CA' %}" method="POST" autocomplete="off">
+        {% csrf_token%}
+        <div class="row">
+            <div class="col-xl-6">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-xl-4">
+                                <label for="amount" class="col-form-label">Journalier:</label>
+                            </div>
+                            <div class="col-xl-6">
+                                <div class="input-group">
+                                    <input type="date" name="jour" class="form-contdol" value={{jour}}>
+                                    <input type="submit" class="btn btn-primary" value="rechercher">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-striped table-bordered stat-table">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>HT</th>
+                                    <th>TTC</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th>Montant(DHs):</th>
+                                    <td>{{values.jour.ht}}</td>
+                                    <td>{{values.jour.ttc}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-xl-4">
+                                <label for="amount" class="col-form-label">Mensuel:</label>
+                            </div>
+                            <div class="col-xl-8">
+                                <div class="input-group">
+                                    <input type="month" name="month" class="form-contdol" value={{month}}>
+                                    <input type="submit" class="btn btn-primary" value="rechercher">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-striped table-bordered stat-table">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>HT</th>
+                                    <th>TTC</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th>Montant(DHs):</th>
+                                    <td>{{values.month.ht}}</td>
+                                    <td>{{values.month.ttc}}</td>
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="card mb-4">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-xl-4">
+                        <label for="amount" class="col-form-label">Annuel:</label>
+                    </div>
+                    <div class="col-xl-6">
+                        <div class="input-group">
+                            <input type="number" name="year" class="form-contdol" value={{year}}>
+                            <input type="submit" class="btn btn-primary" value="rechercher">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <table class="table table-striped table-bordered stat-table">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>HT</th>
+                            <th>TTC</th>
+                            <th>var n/n-1(HT)</th>
+                            <th>var n/n-1(TTC)</th>
+                            <th>Résultat</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th>Montant(Dhs):</th>
+                            <td>{{values.year.ht}}</td>
+                            <td>{{values.year.ttc}}</td>
+                            <td>{{values.year.diffht}}</td>
+                            <td>{{values.year.diffttc}}</td>
+                            <td><i {%if bool %} class="fas fa-check" {% else %} class="fas fa-times" {% endif %}></i>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </form>
+</div>
+<br>
+{% endblock %}

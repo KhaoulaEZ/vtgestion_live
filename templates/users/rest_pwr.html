@@ -1,0 +1,146 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html class="loading semi-dark-layout" lang="en" data-layout="semi-dark-layout" data-textdirection="ltr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ABXR - Reset password</title>
+    <link rel="stylesheet" href="{% static 'css/validate.css' %}">
+    <link rel="stylesheet" href="{% static 'css/auth.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+</head>
+
+<body class="vertical-layout vertical-menu-modern blank-page navbar-floating footer-static  " data-open="click"
+    data-menu="vertical-menu-modern" data-col="blank-page">
+    <div class="app-content content ">
+        <div class="content-overlay"></div>
+        <div class="header-navbar-shadow"></div>
+        <div class="content-wrapper">
+            <div class="content-header row">
+            </div>
+            <div class="content-body">
+                <div class="auth-wrapper auth-basic px-2">
+                    <div class="auth-inner my-2">
+                        <div class="card mb-0">
+                            <div class="card-body">
+                                <div class="alert alert-danger d-none" role="alert">
+                                    <div class="alert-body">
+                                    </div>
+                                </div>
+                                <div class="alert alert-success d-none" role="alert">
+                                    <div class="alert-body">
+                                    </div>
+                                </div>
+                                <h4 class="card-title mb-1">Reset Password 🔒</h4>
+                                <p class="card-text mb-2">Your new password must be different from previously used
+                                    passwords</p>
+
+                                <form class="auth-reset-password-form mt-2">
+                                    <div class="mb-1">
+                                        <div class="d-flex justify-content-between">
+                                            <label class="form-label" for="reset-password-new">New Password</label>
+                                        </div>
+                                        <input type="password" class="form-control form-control-merge"
+                                            id="reset-password-new" name="reset-password-new"
+                                            placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
+                                            aria-describedby="reset-password-new" tabindex="1" autofocus />
+                                    </div>
+                                    <div class="mb-1">
+                                        <div class="d-flex justify-content-between">
+                                            <label class="form-label" for="reset-password-confirm">Confirm
+                                                Password</label>
+                                        </div>
+                                        <input type="password" class="form-control form-control-merge"
+                                            id="reset-password-confirm" name="reset-password-confirm"
+                                            placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
+                                            aria-describedby="reset-password-confirm" tabindex="2" />
+                                    </div>
+                                    <button type="submit" class="btn btn-primary w-100" tabindex="3">Set New
+                                        Password</button>
+                                </form>
+
+                                <p class="text-center mt-2">
+                                    <a href="/login"> <i data-feather="chevron-left"></i> Back to login </a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+    <script src="{% static 'js/validate.min.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        $.validator.addMethod("regex", function (value, element, regexp) {
+            return this.optional(element) || regexp.test(value);
+        });
+        $(".auth-reset-password-form").submit(function (e) {
+            $(".alert-danger").addClass("d-none");
+            $(".alert-danger").last().html();
+            $(".alert-success").addClass("d-none");
+            $(".alert-success").last().html();
+            e.preventDefault();
+            $(this).validate({
+                rules: {
+                    'reset-password-new': {
+                        required: true,
+                        minlength: 8,
+                        regex: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[-+_!@#$%^&*.,?]).+$/
+                    },
+                    'reset-password-confirm': {
+                        required: true,
+                        equalTo: '#reset-password-new'
+                    },
+                },
+                messages: {
+                    'reset-password-new': {
+                        required: 'Enter new password',
+                        minlength: 'Enter at least 8 characters',
+                        regex: "Password must contains at least : One uppercase (A-Z), One lowercase (a-z), One number (0-9), One special character"
+                    },
+                    'reset-password-confirm': {
+                        required: 'Please confirm new password',
+                        equalTo: 'The password and its confirm are not the same'
+                    }
+
+                }
+            });
+            var isValid = $(this).valid();
+            if (isValid) {
+                var data = JSON.stringify({
+                    "uid": '{{uid}}',
+                    "token": '{{token}}',
+                    "new_password": $("#reset-password-new").val()
+                });
+                var config = {
+                    method: 'post',
+                    url: '/auth/users/reset_password_confirm/',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    data: data
+                };
+                axios(config)
+                    .then(function (response) {
+                        $(".alert-success > .alert-body").html('Your password has been successfully reset!');
+                        $(".alert-success").removeClass("d-none");
+                    })
+                    .catch(function (error) {
+                        for (var key in error.response.data) {
+                            $(".alert-danger > .alert-body").html(error.response.data[key]);
+                        }
+                        $(".alert-danger").removeClass("d-none");
+                    });
+            }
+        })
+
+    </script>
+</body>
+
+</html>
