@@ -1,0 +1,18 @@
+
+{% extends 'index.html' %}
+{% load crispy_forms_tags %}
+
+
+{% block content %}
+<br><br>
+ <div class="row">
+                            <div class="col-lg-6 d-none d-lg-block bg-login"></div>
+                            <div class="col-lg-6">
+    <div class="container">
+        <h2>Nom : <i>{{user.username}}</i></h2>
+    <h2>mail :  {{user.email}}</h2>
+    </div>
+                            </div>
+ </div>
+    </div>
+{% endblock %}

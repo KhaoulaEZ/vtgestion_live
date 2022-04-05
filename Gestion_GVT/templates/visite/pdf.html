@@ -1,0 +1,138 @@
+{%load static%}
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>Facture</title>
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'css/bootstrap.min.css'%}" rel="stylesheet" />
+    <link href="{% static 'css/main.css'%}" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
+
+    <!-- Custom styles for this template -->
+    <link href="{% static 'css/dashboard.css' %}" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        @page {
+            size: 'A4';
+            margin: 1.5cm 1.5cm 1cm 1.5cm;
+        }
+
+        .table {
+            border-collapse: collapse;
+            border-spacing: 0;
+            width: 100%;
+            border: 1px solid #11110c;
+            font-size: 13px;
+        }
+
+        th,
+        td {
+            text-align: center;
+            padding: 2px;
+        }
+
+        .top {
+            margin: 10px 0px 0px 0px;
+            padding: 2px;
+        }
+    </style>
+</head>
+
+
+<body>
+    <table style="vertical-align: top;">
+        <tr>
+            <td>
+                <h1 style="font-size: 32px;border: 1px solid #11110c;padding: 5px;">Centre VT</h1>
+            </td>
+            <td>
+                <u><strong style="font-size: 20px;">Facture N°:{{facture.numero}}</strong></u>
+                <p style="text-align:right;font-size:12px;"> Le {{date}}</p>
+            </td>
+        </tr>
+    </table>
+    <br>
+    <br>
+    <table style="vertical-align: top;">
+        <tr>
+            <td style="font-size: 14px;"><u>Centre de contrôle technique :</u></td>
+            <td style="font-size: 14px;"><u> Client :</u></td>
+        </tr>
+        <tr>
+            <td style="text-align: left;font-size: 14px;">
+                Nom : <strong>L'entreprise</strong><br />Adresse: <br>Email: <br>Tél:
+            </td>
+            <td style="text-align: left;font-size: 14px;">
+                <strong>{{client.nom}} {{client.prenom}}</strong> <br />&nbsp
+                {{client.quartier}} {{client.ville}}<br>
+                Tél : {{client.Tele}}
+            </td>
+        </tr>
+    </table>
+    <br>
+    <br>
+    <table class="table">
+        <thead style="background-color: #f2f2f2;">
+            <tr>
+                <th>Code</th>
+                <th>Désignation</th>
+                <th>Réglement</th>
+                <th>Taux</th>
+                <th>TVA</th>
+                <th>Montant HT</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr style="border: 1px solid #11110c;">
+                <td width="70px">{{visite.type}}</td>
+                <td width="200px">VISITE TECHNIQUE VEHICULES LEGERS</td>
+                <td width="200px">Date paiment : {{visite.date_visite}}<br>Mode de paiment:{{facture.paiment}}</td>
+                <td width="80px">20.00 %</td>
+                <td width="80px">{{TVA}} </td>
+                <td width="100px">{{facture.montant_net}}.00 </td>
+            </tr>
+        </tbody>
+    </table>
+    <br>
+    <br>
+    <br>
+    <table>
+        <tr>
+            <td width="300px"><br></td>
+            <td width="300px" style="text-align: left;font-size: 13px;">
+                Decret n°2-07-1231 du 27/12/2007 <br>
+                Decret n°2-77-250 du 21/07/1977 <br>
+                252 du code générale impôts 2009 <br>
+                Loi n°47-06 du 03/12/2007
+            </td>
+            <td width="100px" style="text-align: right;font-size: 13px;">{{narsa1}} DHs <br>{{narsa2}} DHs
+                <br>{{facture.taxe_communale}}.00 DHs
+                <br>{{facture.taxe_fiscale}}.00 DHs
+            </td>
+        </tr>
+    </table>
+    <br>
+    <table>
+        <tr>
+            <td width="300px"><br></td>
+            <td width="300px" style="text-align: left;font-size: 14px;">Total HT<br>Total TVA<br>Total TTC <br>Total a
+                payer <br><br>
+                <u style="text-align: left;color:rgb(6, 6, 63);font-size: 9px;">Droit de timbre 0.25% selon les termes
+                    de l'article 252-I-B du CGI</u>
+            </td>
+            <td width="100px" style="text-align: right;font-size: 14px;">{{facture.montant_net}}.00 DHs<br>{{TVA}} DHs
+                <br>{{TTC}} DHs<br>{{facture.montant_total}} DHs <br><br><br>
+            </td>
+        </tr>
+    </table>
+    <br><br><br><br>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <div style="text-align: center;font-size: 14px;">
+        ADRESSE:#############################-Tél:###############-RSC:###########
+        <br>CNSS:#########-IF:########-Palente:########-ICE:############
+    </div>
+</body>
+
+</html>

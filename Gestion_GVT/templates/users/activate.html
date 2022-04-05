@@ -1,0 +1,91 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html class="loading semi-dark-layout" lang="en" data-layout="semi-dark-layout" data-textdirection="ltr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ABXR - Activate account</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'css/components.css' %}">
+    <link rel="stylesheet" href="{% static 'css/page-misc.css' %}">
+<style>
+    .spinner-border {
+    width: 5rem;
+    height: 5rem;
+    margin-top: 10%;
+}
+</style>
+</head>
+
+<body class="vertical-layout vertical-menu-modern blank-page navbar-floating footer-static  " data-open="click"
+    data-menu="vertical-menu-modern" data-col="blank-page">
+    <div class="app-content content ">
+        <div class="content-overlay"></div>
+        <div class="header-navbar-shadow"></div>
+        <div class="content-wrapper">
+            <div class="content-header row">
+            </div>
+            <div class="content-body">
+                <div class="w-100 text-center loader"><div class="spinner-border">
+                    <span class="visually-hidden">Loading...</span>
+                </div></div>
+                <div class="misc-wrapper success_msg d-none">
+                    <div class="misc-inner p-2 p-sm-3">
+                        <div class="w-100 text-center">
+                            <h2 class="mb-1">Your account has been activated ! ✅</h2>
+                            <p class="mb-2">
+                                Your Account has been successfully activated. You can now log in using the username and
+                                password you chose during the registration.
+                            </p><a class="btn btn-primary mb-1 btn-sm-block" href="/login">Back to
+                                login</a><img class="img-fluid" src="{% static 'img/activate.svg' %}"
+                                alt="Not authorized page" />
+                        </div>
+                    </div>
+                </div>
+                <div class="misc-wrapper error_msg d-none">
+                    <div class="misc-inner p-2 p-sm-3">
+                        <div class="w-100 text-center">
+                            <h2 class="mb-1">There is something wrong ! ❌</h2>
+                            <p class="mb-2 mssg">
+                            </p><a class="btn btn-primary mb-1 btn-sm-block" href="/login">Back to
+                                login</a><img class="img-fluid" src="{% static 'assets/activate.svg' %}"
+                                alt="Not authorized page" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        var data = JSON.stringify({
+            "uid": '{{uid}}',
+            "token": '{{token}}'
+        });
+        var config = {
+            method: 'post',
+            url: '/auth/users/activation/',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            data: data
+        };
+        axios(config)
+            .then(function (response) {
+                $(".success_msg").removeClass("d-none");
+                $(".loader").addClass("d-none");
+            })
+            .catch(function (error) {
+               $(".error_msg").removeClass("d-none");
+               $(".loader").addClass("d-none");
+               $(".mssg").html(error.response.data.detail);
+            });
+    </script>
+
+</body>
+
+</html>
