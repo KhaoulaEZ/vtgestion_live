@@ -1,0 +1,126 @@
+{% extends 'index.html' %}
+{%load static%}
+{% block content %}
+
+<div class="container-fluid px-4">
+    <h1 style="text-align:center;">Redevances</h1>
+    <br>
+    <form action="{% url 'Redevances' %}" method="POST" autocomplete="off">
+        {% csrf_token%}
+        <div class="card mb-4">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-xl-5">
+                        <label for="amount" class="col-form-label">Année:</label>
+                    </div>
+                    <div class="col-xl-5">
+                        <div class="input-group">
+                            <input type="number" name="yearm" class="form-contdol" value={{yearm}}>
+                            <input type="submit" class="btn btn-primary btn-sm" value="rechercher">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <br>
+                <!-- <table classe="table table-bordered" style=" width: 80% ;margin-left: auto;margin-right: auto;"> -->
+                <table class="table table-striped table-bordered stat-table">
+                    <thead>
+                        <tr>
+                            <th>Redevances/mois:</th>
+                            <th>Janvier</th>
+                            <th>Février</th>
+                            <th>Mars</th>
+                            <th>Avril</th>
+                            <th>Mai</th>
+                            <th>Juin</th>
+                            <th>Juillet</th>
+                            <th>Août</th>
+                            <th>Septembre</th>
+                            <th>Octobre</th>
+                            <th>Novembre </th>
+                            <th>Décembre</th>
+                            <th>TOTAL</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th>Narsa</th>
+                            {% for m in values.mois.narsa %}
+                            <td>{{m}}</td>
+                            {% endfor %}
+                        </tr>
+                        <tr>
+                            <th>Quittance</th>
+                            {% for m in values.mois.communale %}
+                            <td>{{m}}</td>
+                            {% endfor %}
+                        </tr>
+                        <tr>
+                            <th>Taxe fiscale</th>
+                            {% for m in values.mois.fiscale %}
+                            <td>{{m}}</td>
+                            {% endfor %}
+                        </tr>
+                    </tbody>
+                </table>
+                <!-- <hr size="100" color="black">
+        <div class="row">
+            <input type="number" name="year" class="form-contdol" min=2021 value={{year}}>
+            <input type="submit" class="btn btn-primary" value="rechercher">
+        </div> -->
+                <br>
+                <br>
+                <table class="table table-striped table-bordered stat-table" style="margin: auto;">
+                    <thead>
+                        <tr>
+                            <th>Taxes/Trimestre:</th>
+                            <th>Narsa</th>
+                            <th>Quittance</th>
+                            <th>Taxe fiscale</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th>1er trim(Dhs)</th>
+                            <td>{{values.t1.narsa}}</td>
+                            <td>{{values.t1.communale}}</td>
+                            <td>{{values.t1.fiscale}}</td>
+
+                        </tr>
+                        <tr>
+                            <th>2ème trim(Dhs)</th>
+                            <td>{{values.t2.narsa}}</td>
+                            <td>{{values.t2.communale}}</td>
+                            <td>{{values.t2.fiscale}}</td>
+
+                        </tr>
+                        <tr>
+                            <th>3ème trim(Dhs)</th>
+                            <td>{{values.t3.narsa}}</td>
+                            <td>{{values.t3.communale}}</td>
+                            <td>{{values.t3.fiscale}}</td>
+
+                        </tr>
+                        <tr>
+                            <th>4ème trim(Dhs)</th>
+                            <td>{{values.t4.narsa}}</td>
+                            <td>{{values.t4.communale}}</td>
+                            <td>{{values.t4.fiscale}}</td>
+
+                        </tr>
+                        <tr>
+                            <th> &nbsp &nbsp &nbsp TOTAL</th>
+                            <td>{{values.year.narsa}}</td>
+                            <td>{{values.year.communale}}</td>
+                            <td>{{values.year.fiscale}}</td>
+
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </form>
+</div>
+
+{% endblock %}
