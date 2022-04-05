@@ -1,1 +1,1 @@
-web : gunicorn GVT.wsgi --log-file -
+web: gunicorn Gestion_GVT.wsgi --log-file -
