@@ -1,0 +1,224 @@
+{% extends 'index.html' %}
+{%load static%}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ajouter </title>
+
+    <!-- Font Icon -->
+    <link rel="stylesheet" href="{% static 'fonts/material-icon/css/material-design-iconic-font.min.css'  %}">
+    <link rel="stylesheet" href="{% static 'vendor/nouislider/nouislider.min.css'  %}">
+
+    <!-- Main css -->
+    <link rel="stylesheet" href="{% static 'css/style.css'%} ">
+</head>
+<body>
+
+  <div class="main">
+
+        <div class="container">
+            <div class="signup-content">
+                <div class="signup-img">
+                    <img src="img/img-01.jpg" alt="">
+                    <div class="signup-img-content">
+                        <h2>Remplir les informations</h2>
+                    </div>
+                </div>
+
+        <div class="container">
+            <div class="signup-content">
+                <div class="signup-img">
+                    <!--img src="{% static 'images/form-img.jpg' %}" alt=""-->
+                    <div class="signup-img-content">
+                        <h2>Créer </h2>
+                        <!--p>while seats are available !</p-->
+                    </div>
+                </div>
+                <div class="signup-form">
+                    <form action="{% url 'add' %}" method="POST" class="register-form" id="register-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <div class="form-input">
+                                    <textarea name="nom" class="form-control" id="amount"
+                                            required>{{values.nom}}</textarea>
+                                        <label for="searchField">Nom</label>
+                                </div>
+                                <div class="form-input">
+                                     <textarea type="text" name="prenom" class="form-control" id="amount"
+                                            required>{{values.prenom}}</textarea>
+                                        <label for="searchField">Prénom</label>
+                                </div>
+                                <div class="form-input">
+                                    <input type="text" name="CIN" class="form-control" id="amount" required
+                                            value={{values.CIN}}>
+                                        <label for="searchField">CIN</label>
+                                </div>
+                                <div class="form-input">
+                                   <textarea name="Tele" class="form-control"
+                                            id="amount">{{values.Tele}}</textarea>
+                                        <label for="search_DateV">N°tél </label>
+                                </div>
+                                <div class="form-input">
+                                    <textarea name="VILLE" class="form-control"
+                                            id="amount">{{values.VILLE}}</textarea>
+                                        <label for="searchField">Ville</label>
+                                </div>
+                                <div class="form-input">
+                                    <textarea name="QUARTIER" class="form-control"
+                                            id="amount">{{values.QUARTIER}}</textarea>
+                                        <label for="searchField">Quartier</label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="form-select">
+                                    <div class="label-flex">
+                                        <label for="meal_preference">Visite</label>
+                                        <a href="#" class="form-link">Visite detail</a>
+                                    </div>
+                                    <div class="form-input">
+                                    <textarea name="QUARTIER" class="form-control"
+                                            <input type="date" name="date_visite" class="form-control" id="amount" required
+                                            value={{values.date_visite}}>
+                                        <label for="searchField">Date visite</label>
+                                </div>
+                                    <div class="form-input">
+                                     <input type="date" name="date_expiration" class="form-control" id="amount"
+                                            required value="{{values.date_expiration}}">
+                                        <label for="searchField">Date expiration</label>
+                                </div>
+                                    <div class="select-list">
+                                        <select name="type_visite" class="form-control" id="meal_preference" required
+                                            value="{{values.type_visite}}">
+                                            <option name="type_visite" value="VTP">VTP</option>
+                                            <option name="type_visite" value="MUT">MUT</option>
+                                            <option name="type_visite" value="VOL">VOL</option>
+                                            <option name="type_visite" value="VC">VC</option>
+                                        </select>
+                                        <label for="searchField">Type visite</label>
+                                    </div>
+                                    <div class="select-list">
+                                        <select name="resultat" class="form-control" id="resultat" required
+                                            value={{values.resultat}}>
+                                            <option name="resultat" value="favorable">favorable
+                                            </option>
+                                            <option name="resultat" value="défavorable">
+                                                défavorable</option>
+                                        </select>
+                                        <label for="searchField">Résultat</label>
+                                    </div>
+                                    <div class="form-input">
+                                    <textarea name="observation" class="form-control"
+                                            id="amount">{{values.observation}}</textarea>
+                                        <label for="searchField">Observation</label>
+                                </div>
+                                </div>
+                                <div class="form-radio">
+                                    <div class="label-flex">
+                                        <label for="payment">Facture</label>
+                                        <a href="#" class="form-link">Facture Detail</a>
+                                    </div>
+                                    <div class="form-input">
+                                    <input type="number" name="Narsa" class="form-control" id="Narsa" required
+                                            value={{values.Narsa}}>
+                                        <label for="searchField">Narsa</label>
+                                </div>
+                                     <div class="form-input">
+                                    <input type="number" name="Narsa" class="form-control" id="Narsa" required
+                                            value={{values.Narsa}}>
+                                        <label for="searchField">Narsa</label>
+                                </div>
+                                    <div class="form-input">
+                                    <input type="number" name="taxe_communale" class="form-control" id="Quittance"
+                                            required value={{values.taxe_communale}}>
+                                        <label for="searchField">Quittance</label>
+                                </div>
+                                    <div class="form-input">
+                                    <input type="number" name="taxe_fiscale" class="form-control" id="fiscale"
+                                            required value={{values.taxe_fiscale}}>
+                                        <label for="searchField">Taxe fiscale</label>
+                                </div>
+                                    <div class="select-list">
+                                        <select name="paiment" class="form-control" id="paiment" required
+                                            value="{{values.paiment}}">
+                                            <option name="paiment" value="Espèce">Espèce</option>
+                                            <option name="paiment" value="Chéque">Chèque</option>
+                                            <option name="paiment" value="Carte bancaire">Carte bancaire</option>
+                                        </select>
+                                        <label for="searchField">Mode de réglement</label>
+                                    </div>
+                                <div class="form-input">
+                                    <input type="number" name="montant_net" class="form-control" id="amount"
+                                            required value={{values.montant_net}}>
+                                        <label for="searchField">Montant HT</label>
+                                </div>
+                                    <div class="donate-us">
+                            <label>prix</label>
+                            <div class="price_slider ui-slider ui-slider-horizontal">
+                                <div id="slider-margin"></div>
+                                <span class="donate-value" id="value-lower"></span>
+                            </div>
+                        </div>
+                                <div class="form-input">
+                                    <textarea name="numero" class="form-control" id="amount"
+                                            required>{{values.numero}}</textarea>
+                                        <label for="searchField">N° Facture</label>
+                                </div>
+                            </div>
+                        </div>
+                            <div class="form-group">
+                                <div class="form-select">
+                                    <div class="label-flex">
+                                        <label for="meal_preference">Véhicule</label>
+                                        <a href="#" class="form-link">Véhicule detail</a>
+                                    </div>
+                                    <div class="form-input">
+                                    <textarea name="QUARTIER" class="form-control"
+                                            <textarea name="Matricule" class="form-control" id="amount"
+                                            required>{{values.Matricule}}</textarea>
+                                        <label for="searchField">Matricule</label>
+                                </div>
+                                    <div class="form-input">
+                                     <textarea name="Marque" class="form-control"
+                                            id="amount">{{values.Marque}}</textarea>
+                                        <label for="searchField">Marque</label>
+                                </div>
+                                    <div class="select-list">
+                                        <select name="type_vh" class="form-control" id="type_vh" required
+                                            value="{{values.type_vh}}">
+                                            <option name="type_vh" value="VL">VL</option>
+                                            <option name="type_vh" value="PL-15T">PL-15T</option>
+                                            <option name="type_vh" value="PL+15T">PL+15T</option>
+                                        </select>
+                                        <label for="searchField">Type véhicule</label>
+                                    </div>
+                                    <div class="form-input">
+                                    <input type="number" name="puissance" class="form-control" id="amount" required
+                                            value={{values.puissance}}>
+                                        <label for="searchField">Puissance fisc</label>
+                                </div>
+                                </div>
+                        <div class="form-submit">
+                            <input type="submit" value="Envoyer" class="submit" id="submit" name="submit" />
+                            <input type="submit" value="Annuler" class="submit" id="reset" name="reset" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- JS -->
+    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'vendor/nouislider/nouislider.min.js' %}"></script>
+    <script src="{% static 'vendor/wnumb/wNumb.js' %}"></script>
+    <script src="{% static 'vendor/jquery-validation/dist/jquery.validate.min.js' %}"></script>
+    <script src="{% static 'vendor/jquery-validation/dist/additional-methods.min.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+</html>
+
+{% endblock %}
