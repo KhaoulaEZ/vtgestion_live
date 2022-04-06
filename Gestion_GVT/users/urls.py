@@ -16,4 +16,4 @@ urlpatterns = [
     path('forgot_password/', views.forgot_password),
     path('password/reset/confirm/<str:uid>/<str:token>',views. reset_password),
     path('user/change/activation/', views.change_user_account_activation),
-]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+]
