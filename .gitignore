@@ -1,2 +1,12 @@
 # created by virtualenv automatically
+# IDE settings
+.idea/
 
+# Environments
+venv/
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+
+# Distribution / packaging
+*.egg-info/

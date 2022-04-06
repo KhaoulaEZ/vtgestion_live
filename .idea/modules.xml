@@ -2,7 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+<<<<<<< HEAD
       <module fileurl="file://$PROJECT_DIR$/.idea/Gestion_GVT.iml" filepath="$PROJECT_DIR$/.idea/Gestion_GVT.iml" />
+=======
+      <module fileurl="file://$PROJECT_DIR$/.idea/GestionVT.iml" filepath="$PROJECT_DIR$/.idea/GestionVT.iml" />
+>>>>>>> 5ce22d45b8475cfd1633943f78bf551470e2b99c
     </modules>
   </component>
 </project>
