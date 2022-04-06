@@ -24,4 +24,4 @@ urlpatterns = [
     path('export_xls', views.export_users_xls, name='export_xls'),
     # path('facture/<int:id>', views.facture, name='facture'),
     path('facture/<int:id>', views.render_pdf_view, name='facture'),
-]
+]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

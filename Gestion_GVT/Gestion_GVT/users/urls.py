@@ -4,7 +4,7 @@ from django.contrib.auth import views as auth_view
 from django.views.generic import TemplateView
 
 from .views import forgot_password, activateAccount, reset_password, change_user_account_activation
-
+from django.conf.urls.static import static
 urlpatterns = [
     #path('', views.login, name='login'),
     path('', views.home, name='home'),
@@ -16,4 +16,4 @@ urlpatterns = [
     path('forgot_password/', views.forgot_password),
     path('password/reset/confirm/<str:uid>/<str:token>',views. reset_password),
     path('user/change/activation/', views.change_user_account_activation),
-]
+]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
